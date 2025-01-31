@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package ticket;
+
+service TicketService {
+  rpc GetTicketStatus (TicketRequest) returns (TicketResponse);
+}
+
+message TicketRequest {
+  string ticketID = 1;
+}
+
+message TicketResponse {
+  string status = 1;
+}
