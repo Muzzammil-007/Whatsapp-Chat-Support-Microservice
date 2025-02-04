@@ -28,7 +28,7 @@ const getTicketStatus = (call: any, callback: any) => {
 
 // Start gRPC Server
 const server = new grpc.Server();
-server.addService(ticketProto.TicketService.service, { GetTicketStatus: getTicketStatus });
+server.addService(ticketProto.TicketService.service, { GetTicketByTicketId: getTicketStatus });
 server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
   console.log('🚀 gRPC Server running on port 50051');
 });

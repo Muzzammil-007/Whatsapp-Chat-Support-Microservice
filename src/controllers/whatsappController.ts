@@ -12,7 +12,7 @@ interface IncomingMessage {
 
 interface UserSession {
   step?: string;
-  ticketID?: string;
+  ticketID?: any;
 }
 
 // ✅ 1️⃣ Webhook Verification for Meta (Needed for Setup)
@@ -116,11 +116,6 @@ export const handleIncomingMessage = async (req: Request, res: Response): Promis
 
     // 🔴 Step 3: Awaiting Ticket ID
     if (session.step === 'awaiting_ticket_id') {
-      if (!/^\d+$/.test(message)) {
-        await sendMessageToMetaApi(userPhone, '⚠️ Invalid Ticket ID. Please enter a numeric Ticket ID.');
-        res.status(200).json({ success: true });
-        return;
-      }
 
       session.ticketID = message;
       session.step = 'completed';

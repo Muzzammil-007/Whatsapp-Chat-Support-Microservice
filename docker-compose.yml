@@ -1,0 +1,20 @@
+
+services:
+  ticket-service:
+    build: .
+    container_name: ticket-service
+    ports:
+      - "47029:47029" 
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    container_name: redis-whatsapp
+    ports:
+      - "6379:6379"

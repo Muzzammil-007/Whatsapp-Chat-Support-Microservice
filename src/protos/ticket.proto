@@ -1,15 +1,64 @@
-syntax = "proto3";
+syntax="proto3";
+package TicketGRPC;
 
-package ticket;
+message TicketGrpcResponseTemplate{
+    bool IsApiHandled=1;
+    bool IsRequestSuccess=2;
+    int32 StatusCode=3;
+    string Message=4;
+    repeated string Exceptions=5;
+    oneof Data{
+        bool IsTicketUpdated=6;
+        ResponseTicketDetails TicketDetails=7;
+    }
+  
+}
+message TicketTechnicianApiResponse{
+    bool IsApiHandled=1;
+    bool IsRequestSuccess=2;
+    int32 StatusCode=3;
+    string Message=4;
+    repeated string Exceptions=5;
+    oneof Data{
+        bool IsTechnicianExist=6;
 
-service TicketService {
-  rpc GetTicketStatus (TicketRequest) returns (TicketResponse);
+    }
+
 }
 
-message TicketRequest {
-  string ticketID = 1;
+message RequestListTicketsByTechnicianId{
+    string TechnicianId=1;
 }
 
-message TicketResponse {
-  string status = 1;
+
+message RequestUpdateTicketStatus{
+    string TicketId=1;
+    string Status=2;
+    string CreatedByUserId=3;
+}
+
+message RequestGetTicketId{
+    string TicketId=1;
+}
+
+message ResponseTicketDetails{
+    string TicketId=1;
+    string Status=2;
+    string Description=3;
+    string Priority=4;
+    string UpdatedBy=5;
+    string CreatedBy=6;
+    string RequiredTime=7;
+    string RequiredDate=8;
+    
+
+    
+}
+
+
+service TicketServiceGrpc {
+    rpc UpdateTicketStatus(RequestUpdateTicketStatus) returns (TicketGrpcResponseTemplate);
+    rpc ListTicketsByTechnicianId(RequestListTicketsByTechnicianId) returns (TicketTechnicianApiResponse);
+    rpc GetTicketByTicketId(RequestGetTicketId) returns (TicketGrpcResponseTemplate);
+
 }
