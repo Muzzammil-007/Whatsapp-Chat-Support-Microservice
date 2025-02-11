@@ -1,11 +1,16 @@
 import Redis from 'ioredis';
+import { config } from '../config/environment';
 
-const redisClient = new Redis({
-  host: '127.0.0.1', // Replace with your Redis server's host
-  port: 6379,        // Replace with your Redis server's port
-  password: undefined, // Add password if your Redis instance requires authentication
-  connectTimeout: 5000, // 5-second timeout for connection
-  commandTimeout: 5000, 
+
+const redisConnectionString = `redis://${config.redis.host}:${config.redis.port}`;
+
+ const redisClient = new Redis(redisConnectionString, {
+
+ //host: config.redis.host, 
+  //port: Number(config.redis.port), // Convert port to an integer
+  password: config.redis.password,       // Use the password from the config
+  connectTimeout: 5000, 
+  commandTimeout: 5000,
 });
 
 redisClient.on('connect', () => {
@@ -16,4 +21,9 @@ redisClient.on('error', (err) => {
   console.error('Redis connection error:', err);
 });
 
-export default redisClient;
+/**
+ * Count the number of active sessions in Redis
+ * @returns {Promise<number>}
+ */
+
+export { redisClient };

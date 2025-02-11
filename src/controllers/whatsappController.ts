@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getTicketStatus } from '../services/grpcHandler'; // Fetch ticket status from gRPC
 import { sendMessageToMetaApi } from '../services/metaWhatsAppService';
-import redisClient from '../services/redisCLient';
+import {redisClient} from '../services/redisCLient';
 
 const SESSION_PREFIX = 'user_session:';
 
@@ -88,7 +88,7 @@ export const handleIncomingMessage = async (req: Request, res: Response): Promis
     // 🟢 Step 1: New User → Show Menu
     if (!session.step || session.step === 'completed') {
       session.step = 'welcome';
-      await redisClient.set(sessionKey, JSON.stringify(session), 'EX', 3600); // Set session expiry
+      await redisClient.set(sessionKey, JSON.stringify(session), 'EX', 1800); // Set session expiry
 
       await sendMessageToMetaApi(
         userPhone,

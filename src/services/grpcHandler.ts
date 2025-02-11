@@ -1,5 +1,6 @@
 import * as grpc from "@grpc/grpc-js";
 import * as protoLoader from "@grpc/proto-loader";
+import { config } from '../config/environment';
 
 // Load the gRPC protobuf definition
 const PROTO_PATH = "./src/protos/ticket.proto";
@@ -19,7 +20,7 @@ console.log("Loaded gRPC Object:", grpcObject);
 
 // Create gRPC client
 const client = new ticketPackage.TicketServiceGrpc(
-  "ajeek.qbscocloud.net:47029",
+  config.grpcServerUrl,
   grpc.credentials.createInsecure()
 );
 
