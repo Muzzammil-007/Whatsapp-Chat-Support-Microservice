@@ -44,4 +44,3 @@ jobs:
       # Step 3: Verify Docker Image
       - name: List Docker images
         run: docker images
-git add .github/workflows/ci.yml
