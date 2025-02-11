@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.use('/api/whatsapp', whatsappRoutes);
+app.use('/whatsapphandler', whatsappRoutes);
 
 // Health Check Endpoint
 app.get('/', (req: Request, res: Response) => {
