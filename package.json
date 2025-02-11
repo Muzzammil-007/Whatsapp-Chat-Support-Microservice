@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "ts-node src/server.ts"
+    "start": "ts-node src/server.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.12.5",
